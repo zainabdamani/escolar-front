@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Cadastro de aluno:</h2>
+                <form #formulario="ngForm">
+                    <mdb-form-control>
+                        <input [(ngModel)]="aluno.nome" mdbInput type="text" name="aluno" class="form-control" />
+                        <label mdbLabel class="form-label" for="aluno">Nome do aluno:</label>
+                      </mdb-form-control>
+                      <br>
+                      <mdb-form-control>
+                        <input [(ngModel)]="aluno.cpf" mdbInput type="text" name="cpf" class="form-control" />
+                        <label mdbLabel class="form-label" for="aluno">CPF:</label>
+                      </mdb-form-control>
+                      <br>
+                      <mdb-form-control>
+                        <input [(ngModel)]="aluno.telefone" mdbInput type="text" name="telefone" class="form-control" />
+                        <label mdbLabel class="form-label" for="aluno">Telefone:</label>
+                      </mdb-form-control>
+                      <br>
+                      <mdb-form-control>
+                        <input [(ngModel)]="aluno.cadastroCompleto" mdbInput type="text" name="cadastroCompleto" class="form-control" />
+                        <label mdbLabel class="form-label" for="aluno">Cadastro Completo:</label>
+                      </mdb-form-control>
+                      <br>
+                      <mdb-form-control>
+                        <input [(ngModel)]="aluno.turma.nome" mdbInput type="text" name="turma" class="form-control" />
+                        <label mdbLabel class="form-label" for="aluno">Turma:</label>
+                      </mdb-form-control>
+                      <br>
+                      <button (click)="save()" [disabled]="!formulario.valid" class="btn btn-success"> 
+                        Salvar
+                      </button> 
+                </form>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

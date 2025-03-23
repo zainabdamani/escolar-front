@@ -1,0 +1,79 @@
+<br>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 azul">
+
+                    <div class="card">
+                        <div class="card-body">
+                    <h1>Cadastro de professores</h1><br>
+                        <a class="btn btn-primary" href="admin/professor/new"> 
+                            Novo professor
+                        </a>            
+                        <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            ID
+                                        </th>
+                                        <th scope="col">
+                                            Nome
+                                        </th>
+                                        <th scope="col">
+                                            CPF
+                                        </th>
+                                        <th scope="col">
+                                            E-mail
+                                        </th>
+                                        <th scope="col">
+                                            Especialidade
+                                        </th>
+                                        <th scope="col">
+                                            Turma
+                                        </th>
+                                        <th scope="col">
+                                            Ações
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @for (professor of lista; track $index) {
+                                    <tr>
+                                        <td>
+                                            {{professor.id}}
+                                        </td>
+                                        <td>
+                                            {{professor.nome}}
+                                        </td>
+                                        <td>
+                                            {{professor.cpf}}
+                                        </td>
+                                        <td>
+                                            {{professor.email}}
+                                        </td>
+                                        <td>
+                                            {{professor.especialidade}}
+                                        </td>
+                                        <td>
+                                            {{professor.turmas}}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" href="admin/professor/edit/{{professor.id}}"> 
+                                                Editar
+                                            </a>   
+                                            <a class="btn btn-danger" (click)="delete(professor)"> 
+                                                Deletar
+                                            </a>                                           
+                                        </td>
+                                    </tr>
+                                 }
+                                </tbody>
+        </table>
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+</div>
+
