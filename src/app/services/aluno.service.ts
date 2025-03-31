@@ -29,8 +29,8 @@ export class AlunoService {
     //return this.http.get<Aluno[]>(this.API+'/findByNome', {params: par});
   //}
 
-  deleteById(id: number): Observable<string>{
-    return this.http.delete<string>(this.API+'/deleteById/'+id, {responseType: 'text' as 'json'});
+  delete(id: number): Observable<string>{
+    return this.http.delete<string>(this.API+'/delete/'+id, {responseType: 'text' as 'json'});
   }
 
   save(aluno: Aluno): Observable<string> {

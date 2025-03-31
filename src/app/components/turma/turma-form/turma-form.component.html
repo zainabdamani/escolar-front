@@ -1,36 +1,61 @@
+
+<br>
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 azul">
+
             <div class="card">
                 <div class="card-body">
-                    <h2>Cadastro de turmas:</h2>
-                <form #formulario4="ngForm">
-                    <mdb-form-control>
-                        <input [(ngModel)]="turma.nome" mdbInput type="text" name="turma" class="form-control" />
-                        <label mdbLabel class="form-label" for="turma">Nome da turma:</label>
-                      </mdb-form-control>
-                      <br>
-                      <mdb-form-control>
-                        <input [(ngModel)]="turma.semestre" mdbInput type="text" name="semestre" class="form-control" />
-                        <label mdbLabel class="form-label" for="semestre">Semestre:</label>
-                      </mdb-form-control>
-                      <br>
-                      <mdb-form-control>
-                        <input [(ngModel)]="turma.ano" mdbInput type="text" name="ano" class="form-control" />
-                        <label mdbLabel class="form-label" for="ano">Ano:</label>
-                      </mdb-form-control>
-                      <br>
-                      <mdb-form-control>
-                        <input [(ngModel)]="turma.turno" mdbInput type="text" name="turno" class="form-control" />
-                        <label mdbLabel class="form-label" for="turno">Turno:</label>
-                      </mdb-form-control>
-                      <br>
-                      <button (click)="save()" [disabled]="!formulario4.valid" class="btn btn-success"> 
-                        Salvar
-                      </button> 
-                </form>
+                    <h3>Turmas Cadastradas</h3><br>
+                    <a href="admin/turmas/new" class="btn btn-primary">Novo</a>
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">NOME</th>
+                                <th scope="col">SEMESTRE</th>
+                                <th scope="col">ANO</th>
+                                <th scope="col">TURNO</th>
+                                <th scope="col">PROFESSOR</th>
+                                <th scope="col">ALUNO</th>
+                                <th scope="col">CURSO</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (turma of lista; track $index) {
+                            <tr>
+                                <td>{{turma.id}}</td>
+                                <td>{{turma.nome}}</td>
+                                <td>{{turma.semestre}}</td>
+                                <td>{{turma.ano}}</td>
+                                <td>{{turma.turno}}</td>
+                                <td>{{turma.professor}}</td>
+                                <td>{{turma.aluno}}</td>
+                                <td>{{turma.curso}}</td>
+                                <td class="alinharDireita">
+                                    @if (!modoModal) {
+                                        <a href="admin/professores/edit/{{turma.id}}"
+                                        class="btn btn-primary mx-3">Editar</a>
+                                    <button (click)="deleteById(turma)" class="btn btn-danger mx-3">Deletar</button>
+                                    }@else {
+                                        <button (click)="selecionarTurma(turma)" class="btn btn-danger mx-3">Selecionar</button>
+                                    }
+                                    
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
                 </div>
-            </div>    
+            </div>
+
         </div>
     </div>
 </div>

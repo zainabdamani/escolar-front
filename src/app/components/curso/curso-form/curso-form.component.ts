@@ -1,44 +1,73 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { Curso } from '../../../models/curso';
-import { ActivatedRoute } from '@angular/router';
-import { Turma } from '../../../models/turma';
+import { Curso } from '../../models/curso';
+import { CursoService } from '../../services/curso.service';
 
 @Component({
-  selector: 'app-curso-form',
+  selector: 'app-cursos-form',
   standalone: true,
-  imports: [FormsModule, MdbFormsModule],
-  templateUrl: './curso-form.component.html',
-  styleUrl: './curso-form.component.scss'
+  imports: [FormsModule,MdbFormsModule],
+  templateUrl: './cursos-form.component.html',
+  styleUrl: './cursos-form.component.scss'
 })
-export class CursoFormComponent {
+export class CursosFormComponent {
 
-curso : Curso = new Curso();
-  rotaAtivada = inject(ActivatedRoute);
+  router = inject(ActivatedRoute);
+  roteador = inject(Router);
 
-  constructor(){
-    let id = this.rotaAtivada.snapshot.params['id'];
-    if(id){
-      //AQUI VC VAI CHAMAR O FINDBYID()
-      let curso1 = new Curso();
-          curso1.id = 1;
-          curso1.nome = 'Engenharia de software';
-          let turma = new Turma();
-          turma.nome = '4° Período';
-          curso1.turma = turma;
-          this.curso = curso1;
+  cursoService = inject(CursoService);
+  
+    curso: Curso = new Curso();
+  
+    constructor(){
+  
+      let id = this.router.snapshot.params['id'];
+      if(id>0){
+        this.findById(id);
+      }
+  
     }
-  }
-
-  save(){
-    if(this.curso.id > 0){
-      // UPDATE
-      alert('estou fazendo um update....');
-    }else{
-      // SAVE
-      alert('estou fazendo um save');
+  
+    save(){
+      if(this.curso.id>0){
+        this.cursoService.update(this.curso, this.curso.id).subscribe({
+          next: (mensagem) => {
+            alert(mensagem);
+            this.roteador.navigate(["/admin/cursos"]);
+           
+          },
+          error: (erro) => {
+            alert('Deu erro!');
+          }
+          
+        });
+      }else{
+        this.cursoService.save(this.curso).subscribe({
+          next: (mensagem) => {
+            alert(mensagem);
+            this.roteador.navigate(["/admin/cursos"]);
+          },
+          error: (erro) => {
+            alert('Deu erro!');
+            
+          }
+        });
+      } 
+      
     }
-  }
-
+  
+    findById(id:number){
+      
+      this.cursoService.findById(id).subscribe({
+        next: (cursoRetornado) => {
+          this.curso = cursoRetornado;
+        },
+        error: (erro) => {
+          alert('Deu erro!');
+        }
+      });
+  
+    }
 }
