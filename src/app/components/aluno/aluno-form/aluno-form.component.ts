@@ -84,7 +84,7 @@ export class AlunosFormComponent {
   }
 
   buscarTurma(){
-    this.modalRef = this.modalService.open(this.modalTurmaList, {modalClass: 'modal-lg'});
+    this.modalRef = this.modalService.open(this.modalTurmaList, {modalClass: 'modal-xl'});
 
   }
 

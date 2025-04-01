@@ -1,61 +1,114 @@
-
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-12 azul">
-
-            <div class="card">
-                <div class="card-body">
-                    <h3>Turmas Cadastradas</h3><br>
-                    <a href="admin/turmas/new" class="btn btn-primary">Novo</a>
-
-                    <table class="table">
-
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">NOME</th>
-                                <th scope="col">SEMESTRE</th>
-                                <th scope="col">ANO</th>
-                                <th scope="col">TURNO</th>
-                                <th scope="col">PROFESSOR</th>
-                                <th scope="col">ALUNO</th>
-                                <th scope="col">CURSO</th>
-
-
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (turma of lista; track $index) {
-                            <tr>
-                                <td>{{turma.id}}</td>
-                                <td>{{turma.nome}}</td>
-                                <td>{{turma.semestre}}</td>
-                                <td>{{turma.ano}}</td>
-                                <td>{{turma.turno}}</td>
-                                <td>{{turma.professor}}</td>
-                                <td>{{turma.aluno}}</td>
-                                <td>{{turma.curso}}</td>
-                                <td class="alinharDireita">
-                                    @if (!modoModal) {
-                                        <a href="admin/professores/edit/{{turma.id}}"
-                                        class="btn btn-primary mx-3">Editar</a>
-                                    <button (click)="deleteById(turma)" class="btn btn-danger mx-3">Deletar</button>
-                                    }@else {
-                                        <button (click)="selecionarTurma(turma)" class="btn btn-danger mx-3">Selecionar</button>
-                                    }
-                                    
-                                </td>
-                            </tr>
-                            }
-
-                        </tbody>
-                    </table>
-
+        
+        <div class="col-12 ">
+    
+          <div class="card">
+            <div class="card-body text-center">
+              <h3>Nova Turma</h3>
+              <br>
+              <mdb-form-control>
+                <input mdbInput type="text"  class="form-control" [(ngModel)]="turma.nome" />
+                <label mdbLabel class="form-label" >Nome:</label>
+              </mdb-form-control>
+              <br>
+              <mdb-form-control>
+                <input mdbInput type="text"  class="form-control" [(ngModel)]="turma.semestre" />
+                <label mdbLabel class="form-label" >Semestre:</label>
+              </mdb-form-control>
+              <br>
+              <mdb-form-control>
+                <input mdbInput type="text"  class="form-control" [(ngModel)]="turma.ano" />
+                <label mdbLabel class="form-label" >Ano:</label>
+              </mdb-form-control>
+              <br>
+              <mdb-form-control>
+                <input mdbInput type="text"  class="form-control" [(ngModel)]="turma.turno" />
+                <label mdbLabel class="form-label" >Turno:</label>
+              </mdb-form-control>
+              
+              <br>
+               <mdb-form-control>
+                <input mdbInput type="text"  class="form-control" [(ngModel)]="turma.aluno" />
+                <label mdbLabel class="form-label" >Aluno:</label>
+              </mdb-form-control>
+              <br>
+               <mdb-form-control>
+                <input mdbInput type="text" class="form-control" [(ngModel)]="turma.curso"
+                  (keyup.enter)="save()" />
+                <label mdbLabel class="form-label" >Curso:</label>
+              </mdb-form-control> 
+              <br>
+    
+              <button type="button" class="btn btn-primary" mdbRipple (click)="save()">Salvar</button>
+              <br>
+              <br>
+              
+              
+              <div class="row">
+                <div class="col-6 alinharAEsquerda">
+                  <h5>Professores:</h5>
                 </div>
+                <div class="col-6 alinharADireita">
+                  <button type="button" class="btn btn-primary" mdbRipple (click)="buscarProfessores()">Buscar Professores</button>
+                </div>
+              </div>
+              <table class="border table table-striped">
+                <thead>
+  
+                  <tr>
+                    <th>Nome</th>
+                    <th>Especialidade</th>
+                    <th></th>
+                  </tr>
+  
+                </thead>
+  
+                <tbody>
+  
+                  @for (professor of turma.professores; track $index) {
+                  <tr>
+                    <td>{{professor?.nome}}</td>
+                    <td>{{professor?.especialidade}}</td>
+                    <td>
+                      <button class="btn btn-danger btn-rounded" type="button" (click)="deletaProfessor(professor)">
+                        <i class="fas fa-trash fa-xs"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  }@empty {
+                  <div class="alinharAEsquerda">
+                    <br><br>
+                    <h5>Nenhum professor selecionado.</h5>
+                    <br><br>
+                  </div>
+                  }
+  
+                </tbody>
+  
+              </table>
             </div>
-
+          </div>
+    
+    
         </div>
-    </div>
+      </div>
 </div>
+
+
+<ng-template #modalProfessorList>
+
+  <div class="modal-header">
+
+
+      <h5 class="modal-title" id="exampleModalLabel">Nova turma/ Editar Turma</h5>
+
+      <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+  
+  </div>
+  <div class="modal-body">
+      <app-professores-list [modoModal] = "true" (retornoProfessor)="retornoProfessorList($event)"></app-professores-list>
+  </div>
+
+</ng-template>

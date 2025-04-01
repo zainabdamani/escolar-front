@@ -1,11 +1,13 @@
 import { Component, EventEmitter, inject, Input, Output, output } from '@angular/core';
 import { Turma } from '../../models/turma';
 import { TurmaService } from '../../services/turma.service';
+import { TurmasFormComponent } from '../turmas-form/turmas-form.component';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 
 @Component({
   selector: 'app-turmas-list',
   standalone: true,
-  imports: [],
+  imports: [TurmasFormComponent, MdbFormsModule,],
   templateUrl: './turmas-list.component.html',
   styleUrl: './turmas-list.component.scss'
 })

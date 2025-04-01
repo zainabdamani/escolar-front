@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Curso } from '../../models/curso';
 import { CursoService } from '../../services/curso.service';
+
 
 @Component({
   selector: 'app-cursos-form',
@@ -19,7 +20,8 @@ export class CursosFormComponent {
 
   cursoService = inject(CursoService);
   
-    curso: Curso = new Curso();
+    @Input("curso") curso: Curso = new Curso();
+    @Output("retorno") retorno = new EventEmitter();
   
     constructor(){
   
@@ -36,6 +38,7 @@ export class CursosFormComponent {
           next: (mensagem) => {
             alert(mensagem);
             this.roteador.navigate(["/admin/cursos"]);
+            this.retorno.emit(this.curso);
            
           },
           error: (erro) => {
@@ -48,6 +51,7 @@ export class CursosFormComponent {
           next: (mensagem) => {
             alert(mensagem);
             this.roteador.navigate(["/admin/cursos"]);
+            this.retorno.emit(this.curso);
           },
           error: (erro) => {
             alert('Deu erro!');

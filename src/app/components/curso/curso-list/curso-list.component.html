@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-body">
             <h3>Cursos Cadastrados</h3><br>
-            <a href="admin/cursos/new" class="btn btn-primary">Novo</a>
+            <a (click)="novoCurso()" class="btn btn-primary">Novo</a>
  
                 <table class="table">
                     
@@ -38,3 +38,19 @@
         </div>
     </div>
 </div>
+
+<ng-template #modalCursoForm>
+
+    <div class="modal-header">
+
+
+        <h5 class="modal-title" id="exampleModalLabel">Novo aluno/Editar aluno</h5>
+
+        <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+    
+    </div>
+    <div class="modal-body">
+        <app-cursos-form [curso] = "cursoEditado" (retorno)="retornoCurso($event)" ></app-cursos-form>
+    </div>
+
+</ng-template>
